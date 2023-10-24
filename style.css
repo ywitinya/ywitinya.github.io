@@ -193,7 +193,20 @@ footer h3, #copyright {
     text-align: center;
 } 
 
+#about .memories {
+    margin: 60px;
+    display: flex;
+    flex-direction: row; /* or column */
+    justify-content: space-between; /* Align items along the main axis */
+    align-items: start; /* Align items along the cross axis */
+    padding-bottom: 40px;
+}
 
+#about .memories #description {
+    text-align: left;
+    font-weight: 100;
+    font-size: larger;
+}
 
 
 
