@@ -1,4 +1,6 @@
-
+@media screen and (max-width: 1024px) {
+    /* Styles for screens between 769px and 1024px (e.g., tablets, mobile phones) */
+}
 body {
     width: 100%;
     color: black;
@@ -41,12 +43,12 @@ img {
     height: auto;
 }
 
-#Home {
+#home {
     padding-top: 100px;
     background-color: blanchedalmond;
 }
 
-#Home h2, h3, p {
+#home h2, h3, p {
     text-align: left;
     text-decoration: solid;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -56,7 +58,7 @@ img {
 }
 
 
-#Home h2 {
+#home h2 {
     font-size: x-large;
     font-weight: bold;
    
@@ -70,13 +72,13 @@ img {
 .clear {
     clear: both;
 }
-#About {
+#about {
     background-color: aliceblue;
     padding-top: 20px;
     margin: 0px;
 }
 
-#About p {
+#about p {
     margin: 20px;
     text-align: left;
     text-decoration: solid;
@@ -85,7 +87,7 @@ img {
     font-style: normal;
 }
 
-#About .body {
+#about .body {
     display: flex;
     flex-direction: row; /* or column */
     justify-content: space-between; /* Align items along the main axis */
@@ -94,45 +96,45 @@ img {
 
 }
 
-#About .footer {
+#about .footer {
     padding-bottom: 10px;
 }
 
-#About .footer a{
+#about .footer a{
     text-decoration: none;
 }
 
-#Resume {
+#resume {
     background-color: whitesmoke;
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
-#Resume h2 {
+#resume h2 {
     font-size: x-large;
     font-weight: bold;
     margin: 20px;
 }
 
-#Resume h3, h4 {
+#resume h3, h4 {
     font-size: large;
     font-weight: bold;
     margin-left: 40px;
 }
 
 
-#Resume ul {
+#resume ul {
     margin-left: 20px;
     list-style: disc;
 }
 
-#Resume ul li {
+#resume ul li {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: medium;
     font-style: normal;
 }
 
-#Resume button{
+#resume button{
     font-size: xx-large;
     margin: 40px;
     box-shadow: inset;
@@ -141,23 +143,23 @@ img {
     padding: 20px;
 }
 
-#Contact {
+#contact {
     padding-top: 20px;
     background-color: azure;
     padding-bottom: 20px;
 }
-#Contact ul li {
+#contact ul li {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: medium;
     font-style: normal;
 }
 
-#Contact ul{
+#contact ul{
     text-align: center;
     list-style: none;
 }
 
-#Contact h2 {
+#contact h2 {
     font-size: x-large;
     font-weight: bold;
     margin: 20px;
