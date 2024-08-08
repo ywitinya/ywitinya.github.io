@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import galaxyshooter from './components/assets/galaxyshooter.jpg';
 import studysparx from './components/assets/studysparx.jpg';
 import unojournal from './components/assets/unojournal.jpg';
-import Footer from './components/footer';
 import BasicExample from './components/navbar';
 
 const ProjectItem = ({ title, description, link, img }) => {
@@ -44,7 +43,6 @@ function Projects() {
                 only one word description of a special something on a day"/>
             </div>
            
-            <Footer/>
         </>
     );
 }

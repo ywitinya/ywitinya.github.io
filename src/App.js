@@ -27,10 +27,19 @@ function Home() {
           </p>
         </div>
       </div>
-      {/* <div style={{margin:'0.25in'}}>
+      <div id="About">
+        <AboutPage/>
+      </div>
+      <div id="Projects">
+        <Projects/>
+      </div>
+      <div id="Contact">
+        <ContactPage/>
+      </div>
+      <div style={{margin:'0.25in'}}>
         <Footer/>
       </div>
-       */}
+      
     </>
   );
 }
@@ -41,9 +50,6 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element= {<Home/>} />
-        <Route path="/About" element={<AboutPage/>} />
-        <Route path="/Contact" element={<ContactPage/>} />
-        <Route path='/Projects' element={<Projects/>}/>
       </Routes>
     </Router>
   );

@@ -1,16 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container } from 'react-bootstrap';
 import CarouselObject from './components/carousels';
-import Footer from './components/footer';
-import BasicExample from './components/navbar';
 
 function AboutPage() {
     return(
         <>
-        <Container style={{alignContent:'flex-start'}}>
-            <BasicExample/>
-        </Container>
-      
+        
         <h3 class="display-5" style={{fontFamily:'Verdana'}}>About Me</h3>
         <div className="d-flex flex-row" style={{fontSize:'large', fontFamily:'sans-serif'}} >
             <p className="p-3">
@@ -39,7 +33,7 @@ function AboutPage() {
             </p>
         </div>
         <CarouselObject/>
-        <Footer/>
+        
         </>
     );
 }

@@ -1,16 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container } from 'react-bootstrap';
 import Footer from './components/footer';
-import BasicExample from './components/navbar';
 
 
 function ContactPage() {
     return(
         <>
-            <Container style={{alignContent:'flex-start'}}>
-                <BasicExample/>
-            </Container>
-      
+            
             <h1 className="display-5" style={{fontFamily:'Verdana'}}>Contact</h1>
             <div className="d-flex flex-row">
                 <h3 className="justify-content-start" style={{color:'blue'}}>#MyResume</h3>
