@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Footer from './components/footer';
 
 
 function ContactPage() {
@@ -7,16 +6,16 @@ function ContactPage() {
         <>
             
             <h1 className="display-5" style={{fontFamily:'Verdana'}}>Contact</h1>
-            <div className="d-flex flex-row">
+            <div className="d-flex flex-row" style={{margin:"0.25in"}}>
                 <h3 className="justify-content-start" style={{color:'blue'}}>#MyResume</h3>
                 <a href="YabesiWitinyaResume.pdf" target="_blank" class="justify-content-end"><i className="display-5 bi-filetype-pdf"></i></a>
             </div>
             
-            <h3> Let's connect and explore opportunities together!</h3>
-            <p>Thank you for taking the time to explore my portfolio. 
+            <h3 style={{margin:"0.25in"}}> Let's connect and explore opportunities together!</h3>
+            <p style={{margin:"0.25in"}}>Thank you for taking the time to explore my portfolio. 
                 I'm eager to connect with professionals, recruiters, and potential collaborators in the tech and related fields. 
                 Feel free to reach out to me with any opportunities, questions, or just to say hello.</p>
-            <div style={{padding:'0.25in'}}>   
+            <div style={{margin:'0.5in'}}>   
                 <ul class="text-center list-group list-group-flush shadow-lg rounded bg-body" 
                 style={{paddingRight:'0.5in', paddingLeft:'0.5in'}}>
                     <li class="list-group-item">Email:<br></br>
@@ -29,7 +28,7 @@ function ContactPage() {
                 </ul>
                 {/* <!-- <div class="chart">Let's Chart</div> --> */}
             </div> 
-            <Footer/>
+          
         </>
     );
 }

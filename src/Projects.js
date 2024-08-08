@@ -1,11 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import { Card, Container } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import galaxyshooter from './components/assets/galaxyshooter.jpg';
 import studysparx from './components/assets/studysparx.jpg';
 import unojournal from './components/assets/unojournal.jpg';
-import BasicExample from './components/navbar';
 
 const ProjectItem = ({ title, description, link, img }) => {
     return (
@@ -27,9 +26,7 @@ const ProjectItem = ({ title, description, link, img }) => {
 function Projects() {
     return(
         <>
-            <Container style={{alignContent:'flex-start'}}>
-                <BasicExample/>
-            </Container>
+           
             <h3 class="display-5" style={{fontFamily:'Verdana'}}>Projects</h3>
             <div className="d-flex justify-content-around" style={{marginTop:'0.5in', marginBottom:'0.5in'}}>
                 <ProjectItem title="Galaxy space shooter" img={galaxyshooter}

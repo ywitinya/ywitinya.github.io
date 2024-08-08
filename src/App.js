@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AboutPage from './About';
+import Footer from './components/footer';
 import BasicExample from './components/navbar';
 import ContactPage from './Contact';
 import Projects from './Projects';
@@ -9,10 +10,10 @@ import Projects from './Projects';
 function Home() {
   return(
       <>
-      <Container style={{alignContent:'flex-start'}}>
+      <Container style={{alignContent:'flex-start', position:"sticky"}}>
             <BasicExample/>
       </Container>
-      <div style={{margin:'0.25in'}}>
+      <div style={{margin:'0.5in', paddingBottom:"0.5in"}}>
           <div class="p-3 float-start" style={{alignContent:'flex-start'}}>
             <img src="Yabz-copy.png" class="img-fluid rounded shadow-lg" 
               width="350" height="500" alt="No pic found"/>
@@ -27,16 +28,16 @@ function Home() {
           </p>
         </div>
       </div>
-      <div id="About">
+      <div id="About" style={{margin:'0.5in', paddingTop:"0.5in"}}>
         <AboutPage/>
       </div>
-      <div id="Projects">
+      <div id="Projects" style={{margin:'0.5in', paddingTop:"0.5in"}}>
         <Projects/>
       </div>
-      <div id="Contact">
+      <div id="Contact" style={{margin:'0.5in', paddingTop:"0.5in"}}>
         <ContactPage/>
       </div>
-      <div style={{margin:'0.25in'}}>
+      <div style={{ paddingTop:"0.5in" }}>
         <Footer/>
       </div>
       
