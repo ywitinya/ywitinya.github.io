@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container } from 'react-bootstrap';
 import CarouselObject from './components/carousels';
 
 function AboutPage() {
@@ -7,6 +8,7 @@ function AboutPage() {
         
         <h3 class="display-5" style={{fontFamily:'Verdana'}}>About Me</h3>
         <div className="d-flex flex-row" style={{fontSize:'large', fontFamily:'sans-serif'}} >
+            <div>
             <p className="p-3">
                 Beyond coding and algorithms, I'm passionate about soccer. 
                 I'm both a player and an avid fan of the English Premier League and Tottenham Hotspurs. 
@@ -20,6 +22,8 @@ function AboutPage() {
                 My parents gave me the best gift of my life: 
                 my family name, Witinya, which means "don't be afraid."
             </p>
+            </div>
+            <div>
             <p className="p-3">
                 My exceptional communication skills set me apart. 
                 As a Colgate Admission Ambassador, computer science tutor, 
@@ -31,9 +35,11 @@ function AboutPage() {
                 JavaScript, HTML, and CSS. I'm also proficient with tools like Excel, Adobe InDesign, 
                 Illustrator, Photoshop, Figma, VS Code, and GitHub, where I excel in data analysis and design. Technology isn't just my major; it's a passion I'm eager to apply and share with others.
             </p>
+            </div>
         </div>
+        <Container>
         <CarouselObject/>
-        
+        </Container>
         </>
     );
 }
