@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=".\index.css">
+    <link rel="icon" type="image/x-icon" href=".\assets\images\favicon.ico">
+    <title>Portfolio</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h2>Yabesi Witinya</h2>
+            <img class="mobile-profile" alt="profile picture"
+                src=".\assets\images\yabz_mlu_edit.jpg">
+            <nav class="nav-flex">
+                <ul>
+                    <li><a href="#about-section">About</a></li>
+                    <li><a href="#projects-section">Projects</a></li>
+                    <li><a href="#contacts-section">Contacts</a></li>
+                    <li><a href="./assets/documents/Yabesi Witinya Resume_CV.pdf" target="_blank">Résumé</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="about" id="about-section">
+            <h1>About Me</h1>
+            <section class="intro">
+                <img class="profile-pic" alt="profile picture"
+                src=".\assets\images\yabz_mlu_edit.jpg">
+                <p>I'm a Researcher, Data Analyst and Python Programmer.<br>
+                    My passion is developing creative solutions from data insights.<br>
+                    <br> I'm in my final year of my college experience at Colgate University.
+                    <br> I'm proud to be conducting research for my Honors Thesis in Computer Science department in my last two semesters.
+
+                    <br>
+                </p>
+            </section>
+            <section class="carousel">
+                <h1>Get to know Me</h1>
+                <div class="slideshow-container">
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">1 / 3</div>
+                            <img src="./assets/images/POSTER_jabz.jpg" style="width:100%">
+                        <div class="text">Caption Text</div>
+                    </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">2 / 3</div>
+                            <img src="./assets/images/NYC_jabz (1).jpg" style="width:100%">
+                        <div class="text">Caption Two</div>
+                    </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">3 / 3</div>
+                            <img src="./assets/images/CAVERNS_jabz (1).jpg" style="width:100%">
+                        <div class="text">Caption Three</div>
+                    </div>
+
+                    <a class="prev" onclick="plusSlides(-1)">❮</a>
+                    <a class="next" onclick="plusSlides(1)">❯</a>
+
+                </div>
+                <br>
+
+                <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1)"></span> 
+                    <span class="dot" onclick="currentSlide(2)"></span> 
+                    <span class="dot" onclick="currentSlide(3)"></span> 
+                </div>
+
+                <script>
+                    let slideIndex = 1;
+                    showSlides(slideIndex);
+
+                    function plusSlides(n) {
+                    showSlides(slideIndex += n);
+                    }
+
+                    function currentSlide(n) {
+                    showSlides(slideIndex = n);
+                    }
+
+                    function showSlides(n) {
+                    let i;
+                    let slides = document.getElementsByClassName("mySlides");
+                    let dots = document.getElementsByClassName("dot");
+                    if (n > slides.length) {slideIndex = 1}    
+                    if (n < 1) {slideIndex = slides.length}
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";  
+                    }
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    slides[slideIndex-1].style.display = "block";  
+                    dots[slideIndex-1].className += " active";
+                    }
+                </script>
+            </section>
+        </div>
+        <div class="projects" id="projects-section">
+            <h1>Projects</h1>
+            <div class="cards">
+                <!-- project 1-->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                        <article class="card">
+                            <header>
+                            <h2>DNS Naming Patterns & Geolocation</h2>
+                            </header>
+                            <img src="./assets/images/tokenization_graph.png" alt="DNS visualization" />
+                            <div class="content">
+                            <p>
+                                Investigating naming conventions in rDNS data using Python pipelines and geolocation datasets.
+                            </p>
+                            </div>
+                            <footer class="card-footer"><a href="#">Summer 2024 – Present</a></footer>
+                        </article>
+                        </div>
+                        <div class="flip-card-back">
+                        <article class="card">
+                            <h1>Research Project</h1>
+                            <p>Analyzed rDNS patterns using tree-based structures (e.g., N-ray trees) and external geolocation sources like GeoNames and UN LOCODE.</p>
+                            <a href="#">Advised by Prof. Joel Sommers</a>
+                        </article>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <!-- project 2-->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                        <article class="card">
+                            <header>
+                            <h2>LearntheFix Web Platform</h2>
+                            </header>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png" alt="Web App" />
+                            <div class="content">
+                            <p>
+                                A full-stack platform connecting learners with professionals for hands-on skill training.
+                            </p>
+                            </div>
+                            <footer class="card-footer"><a href="#">Spring 2025 – Present</a></footer>
+                        </article>
+                        </div>
+                        <div class="flip-card-back">
+                        <article class="card">
+                            <h1>Full-Stack Project</h1>
+                            <p>Built with Node.js, MySQL, and DigitalOcean. Includes secure auth, file uploads, and automated emails with Nodemailer.</p>
+                            <a href="https://learnthefix.com" target="_blank">Visit Site</a>
+                        </article>
+                        </div>
+                    </div>
+                </div>
+
+                                    
+                <!-- project 3-->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                        <article class="card">
+                            <header>
+                            <h2>Study Sparx</h2>
+                            </header>
+                            <img src="./assets/images/studysparx.jpg" alt="Study App" />
+                            <div class="content">
+                            <p>
+                                A personalized learning platform to help students track goals and tasks.
+                            </p>
+                            </div>
+                            <footer class="card-footer"><a href="#">Fall 2024</a></footer>
+                        </article>
+                        </div>
+                        <div class="flip-card-back">
+                        <article class="card">
+                            <h1>Frontend Project</h1>
+                            <p>Built with Next.js, TailwindCSS, and Figma. Focused on modular architecture and team collaboration.</p>
+                            <a href="#">Prototype Demo Available</a>
+                        </article>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- project 4--> 
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                        <article class="card">
+                            <header>
+                            <h2>Galaxy Space Shooter</h2>
+                            </header>
+                            <img src="./assets/images/galaxyshooter.jpg" alt="Space Game" />
+                            <div class="content">
+                            <p>
+                                A multi-level Java game with enemy threats, collisions, and increasing difficulty.
+                            </p>
+                            </div>
+                            <footer class="card-footer"><a href="#">Spring 2023</a></footer>
+                        </article>
+                        </div>
+                        <div class="flip-card-back">
+                        <article class="card">
+                            <h1>Java Game</h1>
+                            <p>Used AWT and OOP principles to handle user input, game physics, and level progression.</p>
+                            <a href="#">GitHub Demo Coming Soon</a>
+                        </article>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="contacts" id="contacts-section">
+            <h1>Contact Me</h1>
+            <!-- text area -->
+            <div class="contact-info">
+                <section class="message">
+                    <label for="message">Send me a message:</label>
+
+                    <textarea id="message" name="message" rows="5" cols="45"
+                    placeholder="Let's connect ...">
+                    </textarea><br>
+                    <button class="send-message" type="button">Send Message</button>
+                </section>
+                <section class="info">
+                    <div>
+                        <img src=".\assets\images\send.png" alt="email icons">
+                        <p><span>Email:</span><br> witinyayabesi@gmail.com</p><br>
+                    </div>
+                    <div>
+                        <img src=".\assets\images\whatsapp.png" alt="whatsapp icons">
+                        <p><span>Whatsapp:</span><br> +250 785702801</p><br>
+                    </div>
+                    <div>
+                        <img src=".\assets\images\github.png" alt="github icons">
+                        <p><span>Github:</span><br> ywitinya</p><br>
+                    </div>
+                    <div>
+                        <img src=".\assets\images\linkedin (1).png" alt="linkedin icons">
+                        <p><span>Linkedin:</span><br>   Yabesi Witinya</p><br>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <footer class="main-footer">
+        <div>
+            <span>Follow me</span>
+            <div class="social-media">
+                <a href="https://www.facebook.com/witinya.yabesi"><img src=".\assets\images\facebook.png" alt="facebook icons"></a>
+                <a href="https://x.com/WYabesi46776"><img src=".\assets\images\twitter.png" alt="twitter icons"></a>
+                <a href="https://www.instagram.com/witinyayabesi"><img src=".\assets\images\social.png" alt="instagram icons"></a>
+            </div>
+        </div>
+        <br>© 2025 Yabesi Witinya.
+    </footer>
+</body>
+</html>
