@@ -268,7 +268,7 @@ img {vertical-align: middle;}
 
 /* Responsive section for small screen like mobile devices */
 
-@media screen and (min-width: 367px) and (max-width: 767px) {
+@media screen and (min-width: 300px) and (max-width: 767px) {
     .profile-pic {
         display: none;
     }
