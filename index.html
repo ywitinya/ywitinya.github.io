@@ -371,18 +371,45 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
       <div class="success-text">got it — i'll be in touch soon.</div>
     </div>
 
+    <div class="connect-divider"></div>
+
+    <span class="form-label">share this page</span>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:4px;margin-bottom:2rem">
+      <div id="qrcode"></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);letter-spacing:0.05em">ywitinya.github.io/#connect</div>
+    </div>
+
     <div class="connect-footer">met at the entrepreneurship fair</div>
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
+var qrGenerated = false;
+
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   document.getElementById('bc-current').textContent = name;
   window.scrollTo(0, 0);
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  if (name === 'connect') document.getElementById('nav-connect').classList.add('active');
+  if (name === 'connect') {
+    document.getElementById('nav-connect').classList.add('active');
+    window.location.hash = 'connect';
+    if (!qrGenerated) {
+      new QRCode(document.getElementById('qrcode'), {
+        text: 'https://ywitinya.github.io/#connect',
+        width: 140,
+        height: 140,
+        colorDark: '#00e5a0',
+        colorLight: '#111418',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      qrGenerated = true;
+    }
+  } else {
+    if (window.location.hash === '#connect') history.pushState('', document.title, window.location.pathname);
+  }
 }
 
 function navScroll(id) {
@@ -391,6 +418,11 @@ function navScroll(id) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({behavior:'smooth'});
   }, 50);
+}
+
+// Handle direct link to #connect on page load
+if (window.location.hash === '#connect') {
+  document.addEventListener('DOMContentLoaded', function() { showPage('connect'); });
 }
 
 function handleSaveContact() {
