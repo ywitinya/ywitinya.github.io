@@ -1,266 +1,414 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".\index.css">
-    <link rel="icon" type="image/x-icon" href=".\assets\images\favicon.ico">
-    <title>Portfolio</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Yabesi Witinya</title>
+<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0c0f;--bg2:#111418;--bg3:#181c22;
+  --border:#1e2530;--border2:#2a3340;
+  --green:#00e5a0;--green2:#00b87a;
+  --text:#e8edf5;--muted:#6b7a8d;--faint:#3a4555;
+}
+
+/* ── layout ── */
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh}
+.page{display:none}
+.page.active{display:block}
+
+/* ── topbar ── */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:48px;position:sticky;top:0;z-index:100}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px}
+.breadcrumb-sep{color:var(--faint)}
+.breadcrumb-home{color:var(--green);cursor:pointer}
+.breadcrumb-home:hover{text-decoration:underline}
+.breadcrumb-seg{color:var(--muted)}
+.breadcrumb-current{color:var(--text)}
+.bc-cursor{display:inline-block;width:7px;height:13px;background:var(--green);animation:blink 1s step-end infinite;vertical-align:middle;margin-left:3px}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.08em;cursor:pointer;transition:color 0.15s}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-right{font-size:11px;color:var(--faint)}
+
+/* ── hero ── */
+.hero{padding:4rem 2.5rem 3rem;border-bottom:1px solid var(--border)}
+.hero-inner{display:grid;grid-template-columns:1fr 280px;gap:3rem;align-items:start}
+@media(max-width:760px){.hero-inner{grid-template-columns:1fr}}
+.prompt-line{font-size:11px;color:var(--green);margin-bottom:1rem;letter-spacing:0.05em}
+.hero-name{font-family:'Syne',sans-serif;font-size:3.2rem;font-weight:800;line-height:1;color:var(--text);margin-bottom:0.5rem}
+.hero-name span{color:var(--green)}
+.hero-role{font-size:12px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:4px}
+.hero-bio{font-size:13px;color:var(--muted);line-height:1.8;max-width:520px;margin-bottom:2rem}
+.hero-bio b{color:var(--text);font-weight:400}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2rem}
+.tag{font-size:11px;padding:4px 12px;border:1px solid var(--border2);border-radius:2px;color:var(--muted);letter-spacing:0.05em}
+.tag.active{border-color:var(--green2);color:var(--green)}
+.hero-links{display:flex;gap:1rem;flex-wrap:wrap}
+/* ── personality card ── */
+.persona-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:1.25rem;position:sticky;top:64px}
+.persona-header{font-size:10px;color:var(--green);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.persona-header::after{content:'';flex:1;height:1px;background:var(--border)}
+.persona-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:0.85rem;font-size:12px;color:var(--muted);line-height:1.5}
+.persona-item:last-child{margin-bottom:0}
+.persona-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.persona-item b{color:var(--text);font-weight:400;display:block;font-size:11px;margin-bottom:2px}
+.persona-divider{height:1px;background:var(--border);margin:0.85rem 0}
+.btn-primary{font-family:'JetBrains Mono',monospace;font-size:12px;padding:8px 20px;background:var(--green);color:#000;border:none;border-radius:2px;cursor:pointer;font-weight:500;letter-spacing:0.05em;text-decoration:none;display:inline-block}
+.btn-ghost{font-family:'JetBrains Mono',monospace;font-size:12px;padding:8px 20px;background:transparent;color:var(--text);border:1px solid var(--border2);border-radius:2px;cursor:pointer;letter-spacing:0.05em;transition:border-color 0.15s;text-decoration:none;display:inline-block}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+
+/* ── sections ── */
+.section{padding:2.5rem 2.5rem;border-bottom:1px solid var(--border)}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
+.section-label{font-size:11px;color:var(--green);letter-spacing:0.1em;text-transform:uppercase}
+.section-line{flex:1;height:1px;background:var(--border)}
+
+/* ── projects ── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.proj-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:1.25rem;transition:border-color 0.15s}
+.proj-card:hover{border-color:var(--border2)}
+.proj-card.featured{border-color:var(--green2)}
+.proj-type{font-size:10px;color:var(--green);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.proj-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px}
+.proj-desc{font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.proj-stack{display:flex;flex-wrap:wrap;gap:6px}
+.stack-tag{font-size:10px;color:var(--faint);background:var(--bg3);padding:2px 8px;border-radius:2px;border:1px solid var(--border)}
+
+/* ── skills ── */
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.skill-group-label{font-size:10px;color:var(--green);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px}
+.skill-list{display:flex;flex-direction:column;gap:6px}
+.skill-item{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+.skill-bar-bg{flex:1;height:2px;background:var(--border)}
+.skill-bar{height:2px;background:var(--green);border-radius:1px}
+
+/* ── contact (portfolio) ── */
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.contact-item{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:1rem;text-align:center}
+.contact-icon{width:32px;height:32px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.contact-label{font-size:10px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px}
+.contact-val{font-size:12px;color:var(--text)}
+
+/* ── footer ── */
+.footer-bar{background:var(--bg2);padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center}
+.footer-text{font-size:11px;color:var(--faint)}
+
+/* ── connect page ── */
+.connect-wrap{max-width:480px;margin:0 auto;padding:3rem 2rem 4rem;font-family:'DM Sans',sans-serif}
+.connect-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);letter-spacing:0.08em;margin-bottom:1.2rem}
+.connect-name{font-family:'DM Serif Display',serif;font-size:2.6rem;line-height:1.1;color:var(--text);margin-bottom:0.4rem}
+.connect-name em{font-style:italic;color:var(--muted)}
+.connect-bio{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:2rem;font-weight:300;max-width:340px}
+.connect-divider{height:1px;background:var(--border);margin:1.8rem 0}
+.connect-links{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:2rem}
+.connect-link{display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:20px;border:1px solid var(--border2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text);text-decoration:none;transition:border-color 0.15s;background:transparent;cursor:pointer}
+.connect-link:hover{border-color:var(--green);color:var(--green)}
+.save-btn{width:100%;padding:12px;background:var(--green);color:#000;border:none;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;margin-bottom:2rem;transition:opacity 0.15s;letter-spacing:0.02em}
+.save-btn:hover{opacity:0.88}
+.form-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:block}
+.connect-input{width:100%;padding:10px 14px;border:1px solid var(--border2);border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--bg2);color:var(--text);margin-bottom:10px;outline:none;transition:border-color 0.15s}
+.connect-input::placeholder{color:var(--faint)}
+.connect-input:focus{border-color:var(--green2)}
+.submit-btn{width:100%;padding:11px;background:transparent;border:1px solid var(--border2);border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);cursor:pointer;margin-top:4px;transition:border-color 0.15s,color 0.15s}
+.submit-btn:hover{border-color:var(--green);color:var(--green)}
+.success-box{display:none;text-align:center;padding:2rem;border:1px solid var(--border2);border-radius:4px}
+.success-check{width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid var(--green2);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.success-text{font-size:13px;color:var(--muted)}
+.connect-footer{margin-top:2.5rem;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);text-align:center}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.cursor{display:inline-block;width:8px;height:14px;background:var(--green);animation:blink 1s step-end infinite;vertical-align:middle}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="navbar">
-            <h2>Yabesi Witinya</h2>
-            <img class="mobile-profile" alt="profile picture"
-                src=".\assets\images\yabz_mlu_edit.jpg">
-            <nav class="nav-flex">
-                <ul>
-                    <li><a href="#about-section">About</a></li>
-                    <li><a href="#projects-section">Projects</a></li>
-                    <li><a href="#contacts-section">Contacts</a></li>
-                    <li><a href="./assets/documents/Yabesi Witinya Resume_CV.pdf" target="_blank">Résumé</a></li>
-                </ul>
-            </nav>
+
+<!-- ── TOPBAR ── -->
+<div class="topbar">
+  <div class="breadcrumb" id="breadcrumb">
+    <span class="breadcrumb-home" onclick="showPage('portfolio')">~</span>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-seg">ywitinya</span>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current" id="bc-current">portfolio</span>
+    <span class="bc-cursor"></span>
+  </div>
+  <nav class="nav-links">
+    <a onclick="navScroll('about')" id="nav-about">~/about</a>
+    <a onclick="navScroll('projects')" id="nav-projects">~/projects</a>
+    <a onclick="navScroll('skills')" id="nav-skills">~/skills</a>
+    <a onclick="navScroll('contact')" id="nav-contact">~/contact</a>
+    <a onclick="showPage('connect')" id="nav-connect">~/connect</a>
+  </nav>
+
+</div>
+
+<!-- ════════════════ PORTFOLIO PAGE ════════════════ -->
+<div class="page active" id="page-portfolio">
+
+  <div class="hero" id="about">
+    <div class="hero-inner">
+      <div>
+        <div class="prompt-line">$ whoami</div>
+        <h1 class="hero-name">Yabesi<br><span>Witinya</span></h1>
+        <div class="hero-role">SWE · Data · Builder <span class="cursor"></span></div>
+        <p class="hero-bio">
+          Final-year CS student at <b>Colgate University</b>. Building <b>DeBillBoard</b> — a campus event platform with 50+ weekly active users. NSF-funded researcher. Open to SWE &amp; Data roles.
+        </p>
+        <div class="tags">
+          <div class="tag active">Python</div>
+          <div class="tag active">TypeScript</div>
+          <div class="tag active">SQL</div>
+          <div class="tag">React</div>
+          <div class="tag">FastAPI</div>
+          <div class="tag">Docker</div>
+          <div class="tag">PostgreSQL</div>
+          <div class="tag">NSF research</div>
         </div>
+        <div class="hero-links">
+          <a href="assets/documents/Yabesi_Witinya_Resume.pdf" class="btn-primary" target="_blank">view resume</a>
+          <a href="https://github.com/ywitinya" class="btn-ghost" target="_blank">github</a>
+          <a href="https://linkedin.com/in/ywitinya" class="btn-ghost" target="_blank">linkedin</a>
+          <button class="btn-ghost" onclick="showPage('connect')">~/connect</button>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div class="persona-header">./beyond the code</div>
+
+        <div class="persona-item">
+          <span class="persona-icon">⚽</span>
+          <div><b>Tottenham Hotspur</b>Spurs fan since childhood — COYS, no matter the season.</div>
+        </div>
+
+        <div class="persona-item">
+          <span class="persona-icon">🇷🇼</span>
+          <div><b>Kigali, Rwanda</b>Born and raised. Proud to carry that energy everywhere I go.</div>
+        </div>
+
+        <div class="persona-divider"></div>
+
+        <div class="persona-item">
+          <span class="persona-icon">🏫</span>
+          <div><b>Indatwa n'Inkesha — GSOB</b>6 years of boarding school in Huye/Butare. Built different.</div>
+        </div>
+
+        <div class="persona-item">
+          <span class="persona-icon">🎓</span>
+          <div><b>Almost a Gatee</b>Go 'Gate — nearly done and counting every day.</div>
+        </div>
+
+        <div class="persona-divider"></div>
+
+        <div class="persona-item">
+          <span class="persona-icon">🥛</span>
+          <div><b>Ikivuguto loyalist</b>Sour milk is non-negotiable. Don't @ me.</div>
+        </div>
+
+        <div class="persona-item">
+          <span class="persona-icon">🍃</span>
+          <div><b>Isombe n'ikinono</b>Crushed cassava leaves + cow feet stew. Perfection exists.</div>
+        </div>
+
+        <div class="persona-item">
+          <span class="persona-icon">😬</span>
+          <div><b>Heights? No thanks.</b>Will write distributed systems, will not climb a ladder.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="projects">
+    <div class="section-header">
+      <span class="section-label">./projects</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+      <div class="proj-card featured">
+        <div class="proj-type">founder · full-stack</div>
+        <div class="proj-name">DeBillBoard</div>
+        <div class="proj-desc">Campus event discovery platform. 50+ WAU in week 1. Recommendations engine drove 3× engagement vs chronological feed.</div>
+        <div class="proj-stack">
+          <span class="stack-tag">React/TS</span><span class="stack-tag">FastAPI</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">Redis</span><span class="stack-tag">Docker</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-type">NSF · research</div>
+        <div class="proj-name">DNS Naming Patterns</div>
+        <div class="proj-desc">Processed 2B+ reverse DNS records. Built regex/graph classifiers to infer naming and geo patterns at scale.</div>
+        <div class="proj-stack">
+          <span class="stack-tag">Python</span><span class="stack-tag">SQLite</span><span class="stack-tag">NetworkX</span><span class="stack-tag">Regex</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-type">hackathon · 1st place</div>
+        <div class="proj-name">Study Sparx</div>
+        <div class="proj-desc">Won DandyHacks among 50+ teams. Collaborative study platform shipped in 24 hours.</div>
+        <div class="proj-stack">
+          <span class="stack-tag">Next.js</span><span class="stack-tag">TailwindCSS</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-type">full-stack · co-founder</div>
+        <div class="proj-name">LearnTheFix</div>
+        <div class="proj-desc">Platform with auth, file uploads, and transactional email. CI/CD via GitHub Actions with coverage gates.</div>
+        <div class="proj-stack">
+          <span class="stack-tag">Node/Express</span><span class="stack-tag">MySQL</span><span class="stack-tag">DigitalOcean</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="skills">
+    <div class="section-header">
+      <span class="section-label">./skills</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-group-label">languages</div>
+        <div class="skill-list">
+          <div class="skill-item">Python<div class="skill-bar-bg"><div class="skill-bar" style="width:95%"></div></div></div>
+          <div class="skill-item">TypeScript<div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div></div>
+          <div class="skill-item">Java<div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item">SQL<div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div></div>
+          <div class="skill-item">C<div class="skill-bar-bg"><div class="skill-bar" style="width:70%"></div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">tools & infra</div>
+        <div class="skill-list">
+          <div class="skill-item">Docker<div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item">PostgreSQL<div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div></div>
+          <div class="skill-item">Redis<div class="skill-bar-bg"><div class="skill-bar" style="width:75%"></div></div></div>
+          <div class="skill-item">GitHub Actions<div class="skill-bar-bg"><div class="skill-bar" style="width:82%"></div></div></div>
+          <div class="skill-item">DigitalOcean<div class="skill-bar-bg"><div class="skill-bar" style="width:78%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="contact">
+    <div class="section-header">
+      <span class="section-label">./contact</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e5a0" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        </div>
+        <div class="contact-label">email</div>
+        <div class="contact-val">witinyayabesi@gmail.com</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e5a0" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        </div>
+        <div class="contact-label">github</div>
+        <div class="contact-val">ywitinya</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e5a0" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 10v7M12 13a3 3 0 016 0v4"/></svg>
+        </div>
+        <div class="contact-label">linkedin</div>
+        <div class="contact-val">Yabesi Witinya</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <div class="footer-text">© 2025 Yabesi Witinya</div>
+    <div class="footer-text">built with intentionality</div>
+  </div>
+</div>
+
+<!-- ════════════════ CONNECT PAGE ════════════════ -->
+<div class="page" id="page-connect">
+  <div class="connect-wrap">
+    <div class="connect-eyebrow">$ open --connection ywitinya</div>
+    <h1 class="connect-name">Yabesi <em>Witinya</em></h1>
+    <p class="connect-bio">CS student, founder of DeBillBoard, NSF researcher. Building things that matter — always open to new connections.</p>
+
+    <button class="save-btn" onclick="handleSaveContact()">+ save contact</button>
+
+    <div class="connect-links">
+      <a href="https://linkedin.com/in/ywitinya" class="connect-link" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 10v7M12 13a3 3 0 016 0v4"/></svg>
+        linkedin
+      </a>
+      <a href="https://github.com/ywitinya" class="connect-link" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        github
+      </a>
+      <a href="mailto:witinyayabesi@gmail.com" class="connect-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        email
+      </a>
+      <button class="connect-link" onclick="showPage('portfolio')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 3v18M2 9h6"/></svg>
+        portfolio
+      </button>
     </div>
 
-    <div class="content">
-        <div class="about" id="about-section">
-            <h1>About Me</h1>
-            <section class="intro">
-                <img class="profile-pic" alt="profile picture"
-                src=".\assets\images\yabz_mlu_edit.jpg">
-                <p>I'm a Researcher, Data Analyst and Python Programmer.<br>
-                    My passion is developing creative solutions from data insights.<br>
-                    <br> I'm in my final year of my college experience at Colgate University.
-                    <br> I'm proud to be conducting research for my Honors Thesis in Computer Science department in my last two semesters.
+    <div class="connect-divider"></div>
 
-                    <br>
-                </p>
-            </section>
-            <section class="carousel">
-                <h1>Get to know Me</h1>
-                <div class="slideshow-container">
-
-                    <div class="mySlides fade">
-                        <div class="numbertext">1 / 3</div>
-                            <img src="./assets/images/POSTER_jabz.jpg" style="width:100%">
-                        <div class="text">Caption Text</div>
-                    </div>
-
-                    <div class="mySlides fade">
-                        <div class="numbertext">2 / 3</div>
-                            <img src="./assets/images/NYC_jabz (1).jpg" style="width:100%">
-                        <div class="text">Caption Two</div>
-                    </div>
-
-                    <div class="mySlides fade">
-                        <div class="numbertext">3 / 3</div>
-                            <img src="./assets/images/CAVERNS_jabz (1).jpg" style="width:100%">
-                        <div class="text">Caption Three</div>
-                    </div>
-
-                    <a class="prev" onclick="plusSlides(-1)">❮</a>
-                    <a class="next" onclick="plusSlides(1)">❯</a>
-
-                </div>
-                <br>
-
-                <div style="text-align:center">
-                    <span class="dot" onclick="currentSlide(1)"></span> 
-                    <span class="dot" onclick="currentSlide(2)"></span> 
-                    <span class="dot" onclick="currentSlide(3)"></span> 
-                </div>
-
-                <script>
-                    let slideIndex = 1;
-                    showSlides(slideIndex);
-
-                    function plusSlides(n) {
-                    showSlides(slideIndex += n);
-                    }
-
-                    function currentSlide(n) {
-                    showSlides(slideIndex = n);
-                    }
-
-                    function showSlides(n) {
-                    let i;
-                    let slides = document.getElementsByClassName("mySlides");
-                    let dots = document.getElementsByClassName("dot");
-                    if (n > slides.length) {slideIndex = 1}    
-                    if (n < 1) {slideIndex = slides.length}
-                    for (i = 0; i < slides.length; i++) {
-                        slides[i].style.display = "none";  
-                    }
-                    for (i = 0; i < dots.length; i++) {
-                        dots[i].className = dots[i].className.replace(" active", "");
-                    }
-                    slides[slideIndex-1].style.display = "block";  
-                    dots[slideIndex-1].className += " active";
-                    }
-                </script>
-            </section>
-        </div>
-        <div class="projects" id="projects-section">
-            <h1>Projects</h1>
-            <div class="cards">
-                <!-- project 1-->
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                        <article class="card">
-                            <header>
-                            <h2>DNS Naming Patterns & Geolocation</h2>
-                            </header>
-                            <img src="./assets/images/tokenization_graph.png" alt="DNS visualization" />
-                            <div class="content">
-                            <p>
-                                Investigating naming conventions in rDNS data using Python pipelines and geolocation datasets.
-                            </p>
-                            </div>
-                            <footer class="card-footer"><a href="#">Summer 2024 – Present</a></footer>
-                        </article>
-                        </div>
-                        <div class="flip-card-back">
-                        <article class="card">
-                            <h1>Research Project</h1>
-                            <p>Analyzed rDNS patterns using tree-based structures (e.g., N-ray trees) and external geolocation sources like GeoNames and UN LOCODE.</p>
-                            <a href="#">Advised by Prof. Joel Sommers</a>
-                        </article>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <!-- project 2-->
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                        <article class="card">
-                            <header>
-                            <h2>LearntheFix Web Platform</h2>
-                            </header>
-                            <img src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png" alt="Web App" />
-                            <div class="content">
-                            <p>
-                                A full-stack platform connecting learners with professionals for hands-on skill training.
-                            </p>
-                            </div>
-                            <footer class="card-footer"><a href="#">Spring 2025 – Present</a></footer>
-                        </article>
-                        </div>
-                        <div class="flip-card-back">
-                        <article class="card">
-                            <h1>Full-Stack Project</h1>
-                            <p>Built with Node.js, MySQL, and DigitalOcean. Includes secure auth, file uploads, and automated emails with Nodemailer.</p>
-                            <a href="https://learnthefix.com" target="_blank">Visit Site</a>
-                        </article>
-                        </div>
-                    </div>
-                </div>
-
-                                    
-                <!-- project 3-->
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                        <article class="card">
-                            <header>
-                            <h2>Study Sparx</h2>
-                            </header>
-                            <img src="./assets/images/studysparx.jpg" alt="Study App" />
-                            <div class="content">
-                            <p>
-                                A personalized learning platform to help students track goals and tasks.
-                            </p>
-                            </div>
-                            <footer class="card-footer"><a href="#">Fall 2024</a></footer>
-                        </article>
-                        </div>
-                        <div class="flip-card-back">
-                        <article class="card">
-                            <h1>Frontend Project</h1>
-                            <p>Built with Next.js, TailwindCSS, and Figma. Focused on modular architecture and team collaboration.</p>
-                            <a href="#">Prototype Demo Available</a>
-                        </article>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- project 4--> 
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                        <article class="card">
-                            <header>
-                            <h2>Galaxy Space Shooter</h2>
-                            </header>
-                            <img src="./assets/images/galaxyshooter.jpg" alt="Space Game" />
-                            <div class="content">
-                            <p>
-                                A multi-level Java game with enemy threats, collisions, and increasing difficulty.
-                            </p>
-                            </div>
-                            <footer class="card-footer"><a href="#">Spring 2023</a></footer>
-                        </article>
-                        </div>
-                        <div class="flip-card-back">
-                        <article class="card">
-                            <h1>Java Game</h1>
-                            <p>Used AWT and OOP principles to handle user input, game physics, and level progression.</p>
-                            <a href="#">GitHub Demo Coming Soon</a>
-                        </article>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="contacts" id="contacts-section">
-            <h1>Contact Me</h1>
-            <!-- text area -->
-            <div class="contact-info">
-                <section class="message">
-                    <label for="message">Send me a message:</label>
-
-                    <textarea id="message" name="message" rows="5" cols="45"
-                    placeholder="Let's connect ...">
-                    </textarea><br>
-                    <button class="send-message" type="button">Send Message</button>
-                </section>
-                <section class="info">
-                    <div>
-                        <img src=".\assets\images\send.png" alt="email icons">
-                        <p><span>Email:</span><br> witinyayabesi@gmail.com</p><br>
-                    </div>
-                    <div>
-                        <img src=".\assets\images\whatsapp.png" alt="whatsapp icons">
-                        <p><span>Whatsapp:</span><br> +250 785702801</p><br>
-                    </div>
-                    <div>
-                        <img src=".\assets\images\github.png" alt="github icons">
-                        <p><span>Github:</span><br> ywitinya</p><br>
-                    </div>
-                    <div>
-                        <img src=".\assets\images\linkedin (1).png" alt="linkedin icons">
-                        <p><span>Linkedin:</span><br>   Yabesi Witinya</p><br>
-                    </div>
-                </section>
-
-            </div>
-        </div>
+    <span class="form-label">stay in touch</span>
+    <div id="connect-form">
+      <input class="connect-input" type="text" id="c-name" placeholder="your name"/>
+      <input class="connect-input" type="email" id="c-email" placeholder="your email"/>
+      <button class="submit-btn" onclick="handleConnectSubmit()">send ↗</button>
     </div>
-    <footer class="main-footer">
-        <div>
-            <span>Follow me</span>
-            <div class="social-media">
-                <a href="https://www.facebook.com/witinya.yabesi"><img src=".\assets\images\facebook.png" alt="facebook icons"></a>
-                <a href="https://x.com/WYabesi46776"><img src=".\assets\images\twitter.png" alt="twitter icons"></a>
-                <a href="https://www.instagram.com/witinyayabesi"><img src=".\assets\images\social.png" alt="instagram icons"></a>
-            </div>
-        </div>
-        <br>© 2025 Yabesi Witinya.
-    </footer>
+
+    <div class="success-box" id="connect-success">
+      <div class="success-check">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e5a0" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <div class="success-text">got it — i'll be in touch soon.</div>
+    </div>
+
+    <div class="connect-footer">met at the entrepreneurship fair</div>
+  </div>
+</div>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('bc-current').textContent = name;
+  window.scrollTo(0, 0);
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  if (name === 'connect') document.getElementById('nav-connect').classList.add('active');
+}
+
+function navScroll(id) {
+  showPage('portfolio');
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({behavior:'smooth'});
+  }, 50);
+}
+
+function handleSaveContact() {
+  const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:Yabesi Witinya\nEMAIL:witinyayabesi@gmail.com\nURL:https://linkedin.com/in/ywitinya\nNOTE:Met at entrepreneurship fair\nEND:VCARD`;
+  const blob = new Blob([vcard], {type:'text/vcard'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'yabesi-witinya.vcf'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function handleConnectSubmit() {
+  const name = document.getElementById('c-name').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  if (!name || !email) { alert('please fill in both fields.'); return; }
+  document.getElementById('connect-form').style.display = 'none';
+  document.getElementById('connect-success').style.display = 'block';
+}
+</script>
 </body>
 </html>
