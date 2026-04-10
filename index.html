@@ -122,6 +122,39 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
 
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 .cursor{display:inline-block;width:8px;height:14px;background:var(--green);animation:blink 1s step-end infinite;vertical-align:middle}
+
+/* ── hamburger ── */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:6px;background:none;border:none;flex-shrink:0}
+.hamburger span{width:18px;height:1.5px;background:var(--muted);display:block;transition:transform 0.2s,opacity 0.2s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ── mobile ── */
+@media(max-width:640px){
+  .topbar{padding:0 1rem;position:relative}
+  .nav-links{display:none;position:absolute;top:48px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--border);flex-direction:column;padding:0.4rem 0;z-index:99}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:10px 1.5rem;font-size:12px;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+  .nav-links a:last-child{border-bottom:none}
+  .hamburger{display:flex}
+
+  .hero{padding:2rem 1.25rem 1.75rem}
+  .hero-name{font-size:2.2rem}
+  .hero-bio{font-size:12px}
+
+  .section{padding:1.75rem 1.25rem}
+
+  .contact-grid{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr}
+
+  .footer-bar{padding:1rem 1.25rem;flex-direction:column;gap:4px;text-align:center}
+
+  .connect-wrap{padding:2rem 1.25rem 3rem}
+  .connect-name{font-size:2rem}
+  .connect-links{gap:8px}
+  .connect-link{font-size:12px;padding:6px 12px}
+}
 </style>
 </head>
 <body>
@@ -136,14 +169,16 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
     <span class="breadcrumb-current" id="bc-current">portfolio</span>
     <span class="bc-cursor"></span>
   </div>
-  <nav class="nav-links">
+  <nav class="nav-links" id="nav-links">
     <a onclick="navScroll('about')" id="nav-about">~/about</a>
     <a onclick="navScroll('projects')" id="nav-projects">~/projects</a>
     <a onclick="navScroll('skills')" id="nav-skills">~/skills</a>
     <a onclick="navScroll('contact')" id="nav-contact">~/contact</a>
     <a onclick="showPage('connect')" id="nav-connect">~/connect</a>
   </nav>
-
+  <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </div>
 
 <!-- ════════════════ PORTFOLIO PAGE ════════════════ -->
@@ -384,10 +419,66 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+
+// ═══════════════════════════════════════════════════════════════════════
+//  CONNECT PAGE CONFIG  — edit this block before each event
+// ═══════════════════════════════════════════════════════════════════════
+//
+//  EMAILJS SETUP (one-time, ~5 min):
+//  1. Sign up at https://www.emailjs.com  (free — 200 emails/month)
+//  2. Add a service (Gmail works) → copy the Service ID
+//  3. Create a template with these four variables:
+//       To:      {{to_email}}
+//       Subject: {{subject}}
+//       Body:    {{message}}
+//       (Name field in template can use {{to_name}} if you want)
+//  4. Copy the Template ID and your Public Key below
+//
+const CONNECT_CONFIG = {
+
+  // ── EmailJS credentials ──────────────────────────────────────────────
+  serviceId:  'service_my98zgl',   // e.g. 'service_abc123'
+  templateId: 'nice_to_meet_you_m1ac8u5', // e.g. 'template_xyz789'
+  publicKey:  'dAsBCXmBlY9jnjQmn',  // e.g. 'aBcDeFgHiJkLmNoP'
+
+  // ── Event window ─────────────────────────────────────────────────────
+  // People who submit BEFORE this date get the event message below.
+  // Change this date whenever you switch events.
+  eventCutoff: new Date('2026-04-11T23:59:59'),
+
+  // ── Event-specific message ────────────────────────────────────────────
+  eventSubject: 'Great meeting you at the TIA Showcase!',
+  eventMessage:
+`Hey {name}, Yabesi here — we met at the TIA Showcase today! Great talking with you. I'll shoot you an email with more on DeBillBoard and my background. Hope to stay in touch!`,
+
+  // ── Generic message (after cutoff) ───────────────────────────────────
+  genericSubject: 'Great connecting with you!',
+  genericMessage:
+`Hey {name}, Yabesi here! Thanks for connecting — really appreciate it. I'll be in touch soon with more on DeBillBoard and my background. Hope to stay connected!`,
+
+};
+// ═══════════════════════════════════════════════════════════════════════
+
+emailjs.init({ publicKey: CONNECT_CONFIG.publicKey });
+
 var qrGenerated = false;
 
+function toggleNav() {
+  var nav = document.getElementById('nav-links');
+  var btn = document.getElementById('hamburger');
+  nav.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+function closeNav() {
+  document.getElementById('nav-links').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
 function showPage(name) {
+  closeNav();
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   document.getElementById('bc-current').textContent = name;
@@ -435,11 +526,33 @@ function handleSaveContact() {
 }
 
 function handleConnectSubmit() {
-  const name = document.getElementById('c-name').value.trim();
+  const name  = document.getElementById('c-name').value.trim();
   const email = document.getElementById('c-email').value.trim();
   if (!name || !email) { alert('please fill in both fields.'); return; }
-  document.getElementById('connect-form').style.display = 'none';
-  document.getElementById('connect-success').style.display = 'block';
+
+  const isEvent = new Date() < CONNECT_CONFIG.eventCutoff;
+  const subject = isEvent ? CONNECT_CONFIG.eventSubject  : CONNECT_CONFIG.genericSubject;
+  const message = (isEvent ? CONNECT_CONFIG.eventMessage : CONNECT_CONFIG.genericMessage)
+                    .replace('{name}', name);
+
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = 'sending…';
+  btn.disabled = true;
+
+  emailjs.send(CONNECT_CONFIG.serviceId, CONNECT_CONFIG.templateId, {
+    to_name:  name,
+    to_email: email,
+    subject:  subject,
+    message:  message,
+  }).then(() => {
+    document.getElementById('connect-form').style.display = 'none';
+    document.getElementById('connect-success').style.display = 'block';
+  }).catch((err) => {
+    console.error('EmailJS error:', err);
+    btn.textContent = 'send ↗';
+    btn.disabled = false;
+    alert('Something went wrong — please email me directly at witinyayabesi@gmail.com');
+  });
 }
 </script>
 </body>
